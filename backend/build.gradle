@@ -1,0 +1,117 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.6'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.atech'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+apply plugin: 'war'
+bootWar.enabled = true
+war.enabled = true
+
+bootJar{
+	archivesBaseName = 'turkey'
+	archiveFileName = 'turkey.jar'
+	archiveVersion = "0.0.1"
+}
+
+bootWar{
+	archivesBaseName = 'turkey'
+	archiveFileName = 'turkey.war'
+	archiveVersion = "0.0.1"
+}
+
+war {
+	archiveName 'turkey.war'
+}
+
+ext.profile = (!project.hasProperty('profile') || !profile) ? 'dev' : profile
+println "current profile : ${profile}"
+sourceSets {
+	main {
+		resources {
+			srcDirs "src/main/resources", "src/main/resources/${profile}"
+		}
+	}
+}
+
+tasks {
+	processResources {
+		duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.INCLUDE
+	}
+}
+
+// war 빌드 설정 (주석 풀면 war 빌드해서 스프링 접속가능 or 리액트, 스프링 실행 후 리액트 접속)
+//if (profile.equals('prod')) {
+//	println profile
+//
+//	def frontendDir = "$projectDir/src/main/frontend"
+//
+//	processResources { dependsOn "copyReactBuildFiles" }
+//
+//	task installReact(type: Exec) {
+//		workingDir "$frontendDir"
+//		inputs.dir "$frontendDir"
+//		group = BasePlugin.BUILD_GROUP
+//		if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+//			commandLine "npm.cmd", "audit", "fix"
+//			commandLine 'npm.cmd', 'install'
+//			commandLine 'npm.cmd', 'update'
+//		}
+//		else {
+//			commandLine "npm", "audit", "fix"
+//			commandLine 'npm', 'install'
+//			commandLine 'npm', 'update'
+//		}
+//	}
+//
+//	task buildReact(type: Exec) {
+//		dependsOn "installReact"
+//		workingDir "$frontendDir"
+//		inputs.dir "$frontendDir"
+//		group = BasePlugin.BUILD_GROUP
+//		if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+//			commandLine "npm.cmd", "run-script", "build"
+//		} else {
+//			commandLine "npm", "run-script", "build"
+//		}
+//	}
+//
+//	task copyReactBuildFiles(type: Copy) {
+//		dependsOn "buildReact"
+//		from "$frontendDir/build"
+//		into "$projectDir/src/main/resources/static"
+//	}
+//}
+

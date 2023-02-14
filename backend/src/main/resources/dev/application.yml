@@ -1,0 +1,30 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 3600
+    multipart:
+      max-file-size: 128MB
+      max-request-size: 128MB
+      enabled: true
+
+spring:
+  application:
+    name: rest-api
+  datasource:
+    url: jdbc:mysql://172.30.1.108:3306/turkey_jjlee?useSSL=false&useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
+    username: atech
+    password: dpdlxpzm1221!@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  mail:
+    host: ezsmtp.bizmeka.com
+    port: 25
+    username: dev@atech1221.com
+    password: Dpdlxpzm1221!@
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

@@ -68,10 +68,10 @@ function Header({menu}) {
                                     <li>
                                         <a onClick={onLogout}>로그아웃</a>
                                     </li>
-                                    {localStorage.getItem("role") == "ROLE_ADMIN" &&
+                                    {/* {localStorage.getItem("role") == "ROLE_ADMIN" &&
                                      <li>
                                         <Link to="/system">사이트 관리</Link>
-                                    </li>}
+                                    </li>} */}
                                 </>
                             )}
                         </ul>

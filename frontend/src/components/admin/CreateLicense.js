@@ -169,7 +169,7 @@ function CreateLicense({data, reload}) {
                     />
                     <Button
                         title="닫기"
-                        onClick={onDelete}
+                        onClick={reload}
                         backgroundColor="#555"
                     />
                 </div>

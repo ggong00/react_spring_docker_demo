@@ -3,7 +3,7 @@
 <configuration scan="true" scanPeriod="60 seconds">
     <!--변수-->
     <property name="LOG_PATH" value="./logs" />
-    <property name="LOG_PATH_NAME" value="newframe_2022" />
+    <property name="LOG_PATH_NAME" value="turkey" />
     <property name="LOG_PATTERN" value="[${LOG_PATH_NAME}] %d{yyyy-MM-dd HH:mm:ss} %-5p --- [%thread] %logger[%method:%line] - %msg %n" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

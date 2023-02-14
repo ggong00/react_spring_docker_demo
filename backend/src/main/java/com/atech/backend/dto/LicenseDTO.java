@@ -37,6 +37,7 @@ public class LicenseDTO {
     @NoArgsConstructor
     @Builder
     @ToString
+    @SuppressWarnings("unchecked")
     public static class MyLicenseReq {
         private Long solutionId;
         private Long licenseQuestionId;
@@ -47,7 +48,7 @@ public class LicenseDTO {
         private String siteUrl;
         private String mailTitle;
         private String message;
-        private List<MultipartFile> attachFileList = new ArrayList<>();
+        private List<MultipartFile> attachFileList = new ArrayList<MultipartFile>();
 
         public MyLicense toEntity(){
             Solution solution = new Solution();
